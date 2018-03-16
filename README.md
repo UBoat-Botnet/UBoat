@@ -26,6 +26,10 @@ A POC HTTP Bot designed to replicate a full weaponised commercial botnet written
 
 - Develop a polymorphic crypter to satisfy self mutation 
 - Fix any known bugs 
+- Cross compiler port not just VS 
+- Code doesn't work yet but still needs heavy bit of work 
+
+
 
 # Under heavy development 
 
