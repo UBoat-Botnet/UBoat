@@ -31,6 +31,10 @@ A POC HTTP Bot designed to replicate a full weaponised commercial botnet written
 
 Project is currently heavy development please kindly contribute to it 
 
+# Abuse policy 
+
+Not gonna upload the PHP Panel to prevent abuse
+
 # EDUCATIONAL PURPOSES ONLY 
 
 The project is only for educational purposes i herby don't take responsibilities for it's wartime usage or variants 
