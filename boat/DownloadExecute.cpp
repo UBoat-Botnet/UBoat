@@ -5,7 +5,7 @@
 #include "StringOperations.h"
 #include <time.h>
 
-# This is similar in betabot :P 
+// This is similar in betabot :P 
 
 void gen_random(char *s, const int len);
 
