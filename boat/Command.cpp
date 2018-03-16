@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string>
 
+using namespace std;
+
 char* CreateCommand(int commandId, int commandType, char* data, int dataLength)
 {
 	char* idString = (char*)malloc(11);
