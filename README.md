@@ -2,7 +2,7 @@
 
 A POC HTTP Bot designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
-# Features 
+## Features 
 
 -Coded in C++ with no dependencies
 -40kb Stub
