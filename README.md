@@ -1,6 +1,8 @@
 # UBoat HTTP
 
-A POC HTTP Bot designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
+A POC HTTP Bot(less)net designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
+
+PHP Panel is under construction and most possibly would be put up if appropriate not thinking to do so 
 
 ## Features 
 
@@ -19,7 +21,6 @@ A POC HTTP Bot designed to replicate a full weaponised commercial botnet written
 - Active as well as Passive Keylogger
 - Enable Windows RDP
 - Disable programs
-- Geo IP Map
 - Plugin system for easy feature updates
 
 # TODO :- 
