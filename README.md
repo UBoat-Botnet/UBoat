@@ -30,12 +30,6 @@ PHP Panel is under construction and most possibly would be put up if appropriate
 - Cross compiler port not just VS 
 - Code doesn't work yet but still needs heavy bit of work 
 
-
-
-# Under heavy development 
-
-Project is currently heavy development please kindly contribute to it 
-
 # Abuse policy 
 
 Not gonna upload the PHP Panel to prevent abuse
