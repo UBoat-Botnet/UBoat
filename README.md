@@ -36,7 +36,7 @@ Hishiro - San is a .net dropper project under heavy development designed to aid 
 
 Not gonna upload the PHP Panel to prevent abuse
 
-# EDUCATIONAL PURPOSES ONLY 
+# EDUCATIONAL PURPOSES 
 
 The project is only for educational purposes i herby don't take responsibilities for it's wartime usage or variants 
 
