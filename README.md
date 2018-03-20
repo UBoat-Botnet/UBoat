@@ -2,7 +2,7 @@
 
 A POC HTTP Bot(less)net designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
-PHP Panel is under construction and most possibly would be put up if appropriate not thinking to do so 
+Hishiro - San is a .net dropper project under heavy development designed to aid UBOAT 
 
 ## Features 
 
@@ -22,6 +22,8 @@ PHP Panel is under construction and most possibly would be put up if appropriate
 - Enable Windows RDP
 - Disable programs
 - Plugin system for easy feature updates
+- Anti Analysis
+- .net dropper support ( HISHIRO SAN ) 
 
 # TODO :- 
 
