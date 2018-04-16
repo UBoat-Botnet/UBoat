@@ -1,6 +1,6 @@
 # UBoat HTTP
 
-A POC HTTP Bot(less)net designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
+A POC HTTP Botnet designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
 Hishiro - San is a .net dropper project under heavy development designed to aid UBOAT 
 
@@ -32,9 +32,9 @@ Hishiro - San is a .net dropper project under heavy development designed to aid 
 - Cross compiler port not just VS 
 - Code doesn't work yet but still needs heavy bit of work 
 
-# Abuse policy 
+# Hot thing 
 
-Not gonna upload the PHP Panel to prevent abuse
+PHP Panel is up go smash 
 
 # EDUCATIONAL PURPOSES 
 
