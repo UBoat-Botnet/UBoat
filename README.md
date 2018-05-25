@@ -32,9 +32,6 @@ Hishiro - San is a .net dropper project under heavy development designed to aid 
 - Cross compiler port not just VS 
 - Code doesn't work yet but still needs heavy bit of work 
 
-# Hot thing 
-
-PHP Panel is up go smash 
 
 # EDUCATIONAL PURPOSES 
 
