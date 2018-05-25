@@ -1,2 +1,0 @@
-C:\Users\infocomdemo\Documents\Visual Studio 2015\Projects\Hishiro-San\Hishiro-San\bin\Debug\Hishiro-San.exe.config
-C:\Users\infocomdemo\Documents\Visual Studio 2015\Projects\Hishiro-San\Hishiro-San\obj\Debug\Hishiro-San.csprojResolveAssemblyReference.cache
