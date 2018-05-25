@@ -2,7 +2,7 @@
 
 A POC HTTP Botnet designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
-## Hugs Update 
+## Huge Update 
 
 Huge update is being implemented and will be released shortly stay tuned 
 The parent repository will be moved :) and everything will be super cool 
