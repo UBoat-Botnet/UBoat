@@ -26,14 +26,14 @@ The parent repository will be moved :) and everything will be super cool
 - Disable programs
 - Plugin system for easy feature updates
 - Anti Analysis
-- .net dropper support ( HISHIRO SAN ) 
+
 
 # TODO :- 
 
 - Develop a polymorphic crypter to satisfy self mutation 
 - Fix any known bugs 
 - Cross compiler port not just VS 
-- Code doesn't work yet but still needs heavy bit of work 
+
 
 
 # EDUCATIONAL PURPOSES 
