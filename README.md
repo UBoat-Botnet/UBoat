@@ -3,6 +3,7 @@
 A POC HTTP Botnet designed to replicate a full weaponised commercial botnet
 
 ![](https://image.ibb.co/m5yi9T/spectral_login.png)
+![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 ![awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)
 ![version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg)
 
