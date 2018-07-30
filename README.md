@@ -7,10 +7,10 @@ A POC HTTP Botnet designed to replicate a full weaponised commercial botnet writ
 
 ## Disclaimer
 
-This project should be used for authorized testing or educational purposes only.
+**This project should be used for authorized testing or educational purposes only.
 
-The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets . 
-I hope this project helps to contribute to the malware research community and people can develop efficient counter mesures :)
+**The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets . 
+I hope this project helps to contribute to the malware research community and people can develop efficient counter mesures :)**
 
 ## Features 
 
@@ -45,6 +45,7 @@ I hope this project helps to contribute to the malware research community and pe
 
 - Souhardya Sardar ( Souhardya@protonmail.com) 
 - Tuhinshubhra aka r3dhax0r ( https://github.com/Tuhinshubhra )
+- Team Virtually Unvoid Defensive ( https://github.com/virtuallyud ) 
 
 __Screens :__ 
 
