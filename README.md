@@ -29,6 +29,11 @@ I hope this project helps to contribute to the malware research community and pe
 - Disable programs
 - Plugin system for easy feature updates
 
+## Getting started ? 
+
+- Download the bot/panel releases from the https://github.com/Souhardya/UBoat/releases 
+- Follow the wiki at https://github.com/Souhardya/UBoat/wiki
+
 # TODO :- 
 
 - Fix minor panel bugs 
