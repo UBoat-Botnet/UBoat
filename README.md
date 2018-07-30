@@ -37,7 +37,7 @@ I hope this project helps to contribute to the malware research community and pe
 # TODO :- 
 
 - Fix minor panel bugs 
-- More the panel UI sexy 
+- Make the panel UI sexy 
 - Further develop modules for the bot 
 
 __Screens :__ 
