@@ -12,6 +12,8 @@ A POC HTTP Botnet designed to replicate a full weaponised commercial botnet writ
 **The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets . 
 I hope this project helps to contribute to the malware research community and people can develop efficient counter mesures :)**
 
+**Usage of uboat without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. Authors assume no liability and are not responsible for any misuse or damage caused by this program.**
+
 ## Features 
 
 - Coded in C++ with no dependencies
