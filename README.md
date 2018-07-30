@@ -2,19 +2,22 @@
 
 A POC HTTP Botnet designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
-## Huge Update 
+![](https://image.ibb.co/m5yi9T/spectral_login.png)
 
-Huge update is being implemented and will be released shortly stay tuned 
-The parent repository will be moved :) and everything will be super cool 
+## Disclaimer
+
+This project should be used for authorized testing or educational purposes only.
+
+The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets . 
+I hope this project helps to contribute to the malware research community and people can develop efficient counter mesures :)
 
 ## Features 
 
 - Coded in C++ with no dependencies
-- 40kb Stub
 - Encrypted C&C Communications
 - Anti-deletion & persistence to prevent your control being lost
 - Ultimate Stability
-- Connection Redundancy(Uses a fallback server address or domain to prevent issue to the first panel
+- Connection Redundancy (Uses a fallback server address or domain to prevent issue to the first panel
 - DDoS methods(TCP & UDP Flood)
 - File Management(Search for files on remote machines and copy them)
 - Task Creation System ( Altering system HWID,Country,IP,OS.System)
@@ -25,18 +28,16 @@ The parent repository will be moved :) and everything will be super cool
 - Enable Windows RDP
 - Disable programs
 - Plugin system for easy feature updates
-- Anti Analysis
-
 
 # TODO :- 
 
-- Develop a polymorphic crypter to satisfy self mutation 
-- Fix any known bugs 
-- Cross compiler port not just VS 
+- Fix minor panel bugs 
+- More the panel UI sexy 
+- Further develop modules for the bot 
 
+__Screens :__ 
 
+![] (https://preview.ibb.co/j7frDo/Screenshot_7.png) 
+![] (https://preview.ibb.co/cwyiR8/Screenshot_8.png)
 
-# EDUCATIONAL PURPOSES 
-
-The project is only for educational purposes i herby don't take responsibilities for it's wartime usage or variants 
 
