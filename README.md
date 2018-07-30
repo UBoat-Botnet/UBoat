@@ -3,6 +3,7 @@
 A POC HTTP Botnet designed to replicate a full weaponised commercial botnet written in love by C++ using native WINAPI
 
 ![](https://image.ibb.co/m5yi9T/spectral_login.png)
+![awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)
 
 ## Disclaimer
 
