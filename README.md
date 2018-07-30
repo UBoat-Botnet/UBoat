@@ -37,7 +37,7 @@ I hope this project helps to contribute to the malware research community and pe
 
 __Screens :__ 
 
-![] (https://preview.ibb.co/j7frDo/Screenshot_7.png) 
-![] (https://preview.ibb.co/cwyiR8/Screenshot_8.png)
+![](https://preview.ibb.co/j7frDo/Screenshot_7.png) 
+![](https://preview.ibb.co/cwyiR8/Screenshot_8.png)
 
 
