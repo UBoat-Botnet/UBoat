@@ -21,14 +21,12 @@ I hope this project helps to contribute to the malware research community and pe
 - Anti-deletion & persistence to prevent your control being lost
 - Connection Redundancy (Uses a fallback server address or domain to prevent issue to the first panel
 - DDoS methods(TCP & UDP Flood)
-- File Management(Search for files on remote machines and copy them)
-- Task Creation System ( Altering system HWID,Country,IP,OS.System)
+- Task Creation System ( Altering system HWID,Country,IP,OS.System )
 - Remote Commands
 - Update and Uninstall other malware
 - Download and Execute other malware
 - Active as well as Passive Keylogger
 - Enable Windows RDP
-- Disable programs
 - Plugin system for easy feature updates
 
 ## Getting started ? 
