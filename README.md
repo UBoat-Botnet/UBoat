@@ -40,6 +40,11 @@ I hope this project helps to contribute to the malware research community and pe
 - Make the panel UI sexy 
 - Further develop modules for the bot 
 
+## Project maintained by 
+
+- Souhardya Sardar ( Souhardya@protonmail.com) 
+- Tuhinshubhra aka r3dhax0r ( https://github.com/Tuhinshubhra )
+
 __Screens :__ 
 
 ![](https://preview.ibb.co/j7frDo/Screenshot_7.png) 
