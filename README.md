@@ -21,8 +21,8 @@ I hope this project helps to contribute to the malware research community and pe
 - Coded in C++ with no dependencies
 - Encrypted C&C Communications
 - Anti-deletion & persistence to prevent your control being lost
-- Connection Redundancy (Uses a fallback server address or domain to prevent issue to the first panel
-- DDoS methods(TCP & UDP Flood)
+- Connection Redundancy (Uses a fallback server address or domain )
+- DDoS methods (TCP & UDP Flood)
 - Task Creation System ( Altering system HWID,Country,IP,OS.System )
 - Remote Commands
 - Update and Uninstall other malware
