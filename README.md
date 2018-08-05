@@ -19,7 +19,9 @@ I hope this project helps to contribute to the malware research community and pe
 ## What is a Botnet ? 
 
 https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-side-of-an-standard-protocol.html
-Please don't bother me asking :)
+
+
+**Please don't bother me asking :)**
 
 ## Features 
 
