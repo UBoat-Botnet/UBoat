@@ -47,8 +47,7 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 # TODO :- 
 
 - Fix minor panel bugs 
-- Make the panel UI sexy 
-- Further develop modules for the bot 
+- Make the authentication systrm more efficient 
 
 ## Project maintained by 
 
