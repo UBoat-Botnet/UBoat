@@ -46,7 +46,7 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 # TODO :- 
 
 - Fix minor panel bugs 
-- Make the authentication systrm more efficient 
+- Make the authentication system more efficient 
 
 ## Project maintained by 
 
