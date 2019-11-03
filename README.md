@@ -20,9 +20,6 @@ I hope this project helps to contribute to the malware research community and pe
 
 https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-side-of-an-standard-protocol.html
 
-
-**Please don't bother me asking :)**
-
 ## Features 
 
 - Coded in C++ with no dependencies
@@ -53,7 +50,9 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 - Souhardya Sardar ( Souhardya@protonmail.com ) 
 - Tuhinshubhra aka r3dhax0r ( https://github.com/Tuhinshubhra )
 
-If you'd like to contribute and fix the server side issues of the botnet please kindly mail me at Souhardya@protonmail.com untill it's fixed this repository is going to stay archived :)
+## Urgent 
+
+If you'd like to contribute and fix the server side issues of the botnet please kindly mail me at Souhardya@protonmail.com / open a pull request . Untill it's fixed this repository is going to stay desserted !
 
 __Screens :__ 
 
