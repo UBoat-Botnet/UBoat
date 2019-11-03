@@ -50,9 +50,10 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 
 ## Project maintained by 
 
-- Souhardya Sardar ( Souhardya@protonmail.com) 
+- Souhardya Sardar ( Souhardya@protonmail.com ) 
 - Tuhinshubhra aka r3dhax0r ( https://github.com/Tuhinshubhra )
-- Team Virtually Unvoid Defensive ( https://github.com/virtuallyud ) 
+
+If you'd like to contribute and fix the server side issues of the botnet please kindly mail me at Souhardya@protonmail.com untill it's fixed this repository is going to stay archived :)
 
 __Screens :__ 
 
