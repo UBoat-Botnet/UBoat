@@ -390,7 +390,7 @@ void InitializePollThread()
 
 
 }
-//int main(void)
+
 int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
 
 {
