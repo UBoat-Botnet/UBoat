@@ -394,7 +394,7 @@ void InitializePollThread()
 int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
 
 {
-	Sleep (100000); // sleep 100 seconds to evade runtime a little  
+	
 	HANDLE hThread = NULL;
 	DWORD dwThreadId = NULL;
 
