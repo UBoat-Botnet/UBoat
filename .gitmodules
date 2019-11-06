@@ -1,4 +1,4 @@
 [submodule "Panel"]
 	path = Panel
-	url = https://github.com/Tuhinshubhra/UBoat-Panel.git
+	url = https://github.com/Tuhinshubhra/UBoat-Panel
 	branch = master 
