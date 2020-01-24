@@ -1,6 +1,6 @@
 # UBoat HTTP
 
-A POC HTTP Botnet designed to replicate a full weaponised commercial botnet
+A proof-of-concept HTTP Botnet designed to replicate a full weaponized commercial botnet.
 
 ![](https://image.ibb.co/m5yi9T/spectral_login.png)
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
@@ -11,31 +11,31 @@ A POC HTTP Botnet designed to replicate a full weaponised commercial botnet
 
 **This project should be used for authorized testing or educational purposes only.**
 
-**The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets . 
-I hope this project helps to contribute to the malware research community and people can develop efficient counter mesures :)**
+**The main objective behind creating this offensive project was to aid security researchers and to enhance the understanding of commercial HTTP loader style botnets.
+We hope this project helps to contribute to the malware research community and people can develop efficient countermeasures.**
 
-**Usage of uboat without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. Authors assume no liability and are not responsible for any misuse or damage caused by this program.**
+**Usage of UBoat without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. Authors assume no liability and are not responsible for any misuse or damage caused by this program.**
 
-## What is a Botnet ? 
+## What is a Botnet ?
 
 https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-side-of-an-standard-protocol.html
 
-## Features 
+## Features
 
-- Coded in C++ with no dependencies
-- Encrypted C&C Communications
-- Persistence to prevent your control being lost
-- Connection Redundancy (Uses a fallback server address or domain )
-- DDoS methods (TCP & UDP Flood)
-- Task Creation System ( Altering system HWID,Country,IP,OS.System )
-- Remote Commands
-- Update and Uninstall other malware
-- Download and Execute other malware
-- Active as well as Passive Keylogger
-- Enable Windows RDP
-- Plugin system for easy feature updates
+- Written in C++ with no dependencies.
+- Encrypted C&C communications.
+- Persistence to prevent your control from being lost.
+- Connection redundancy (Uses a fallback server address or domain).
+- DDoS methods (TCP & UDP Flood).
+- Task Creation System (Altering system HWID, Country, IP, OS.System).
+- Remote command execution.
+- Update and uninstall other malware.
+- Download and execute other malware.
+- Active as well as a passive key-logger.
+- Enable Windows RDP.
+- Plugin system for easy feature updates.
 
-## Getting started ? 
+## Getting started ?
 
 - Download the bot from **https://github.com/Souhardya/UBoat/releases**
 - Follow the wiki at **https://github.com/Souhardya/UBoat/wiki**
@@ -48,9 +48,12 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 - Jorge Matricali ( https://github.com/matricali )
 
 
-__Screens :__ 
+## Screenshots
 
-![](https://preview.ibb.co/j7frDo/Screenshot_7.png) 
+![](https://preview.ibb.co/j7frDo/Screenshot_7.png)
+
 ![](https://preview.ibb.co/cwyiR8/Screenshot_8.png)
 
-__Circa__ : **2018** 
+## License
+
+UBoat is released under the MIT License. See [LICENSE](LICENSE) file for more details.
