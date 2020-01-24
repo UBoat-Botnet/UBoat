@@ -40,19 +40,13 @@ https://securityaffairs.co/wordpress/13747/cyber-crime/http-botnets-the-dark-sid
 - Download the bot from **https://github.com/Souhardya/UBoat/releases**
 - Follow the wiki at **https://github.com/Souhardya/UBoat/wiki**
 
-# TODO :- 
 
-- Fix minor panel bugs 
-- Make the authentication system more efficient 
+## Contributors & Maintainers
 
-## Project maintained by 
+- Souhardya Sardar ( @malpwn )  
+- Tuhinshubhra aka r3dhax0r ( @r3dhax0r )
+- Jorge Matricali ( https://github.com/matricali )
 
-- Souhardya Sardar ( Souhardya@protonmail.com ) 
-- Tuhinshubhra aka r3dhax0r ( https://github.com/Tuhinshubhra )
-
-## Urgent 
-
-If you'd like to contribute and fix the server side issues of the botnet please kindly mail me at Souhardya@protonmail.com / open a pull request . Untill it's fixed this repository is going to stay desserted !
 
 __Screens :__ 
 
