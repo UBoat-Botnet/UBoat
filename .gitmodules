@@ -1,3 +1,4 @@
 [submodule "Updated-UBoat-Panel"]
 	path = Panel
 	url = https://github.com/matricali/UBoat-Panel.git
+	branch = master
