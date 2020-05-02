@@ -2,13 +2,13 @@
 #include "URLEncoding.h"
 #include "StringOperations.h"
 
-#include <Windows.h>
+#include "WindowsCompat.h"
 #include <stdio.h>
 #include <string>
 
 using namespace std;
 
-char* CreateCommand(int commandId, int commandType, char* data, int dataLength)
+char* CreateCommand(int commandId, int commandType, const char* data, int dataLength)
 {
 	char* idString = (char*)malloc(11);
 	ZeroMemory(idString, 11);
@@ -18,9 +18,9 @@ char* CreateCommand(int commandId, int commandType, char* data, int dataLength)
 	_itoa_s(commandType, typeString, 11, 10);
 
 	char* encoded = URLEncode(data, dataLength);
-	
+
 	char** strings = new char*[5] { idString, "|", typeString, "|", encoded};
-	
+
 	int outputLen;
 	char* returnBuffer = JoinString(strings, 5, &outputLen);
 	return returnBuffer;

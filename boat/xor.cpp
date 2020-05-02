@@ -1,7 +1,7 @@
 #include "xor.h"
-#include <Windows.h>
+#include "WindowsCompat.h"
 
-char* XORInputKey(char* input, char* key, int inputLength, int keyLength) 
+char* XORInputKey(char* input, char* key, int inputLength, int keyLength)
 {
 	char* output = (char*)malloc(inputLength + 1);
 	output[inputLength] = 0;
@@ -10,7 +10,7 @@ char* XORInputKey(char* input, char* key, int inputLength, int keyLength)
 	return output;
 }
 
-void FreeXORResult(char* input) 
+void FreeXORResult(char* input)
 {
 	free(input);
 }

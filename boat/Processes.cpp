@@ -1,9 +1,14 @@
 #include "Processes.h"
-#include <Windows.h>
+#include "WindowsCompat.h"
 #include <stdio.h>
 
 char* GetProcessResult(char* processName, char* args, int* len) {
+#ifdef _DEBUG_
+	printf("[+] GetProcessResult(%s, %s, %d).\n",  processName, args, (*len));
+#endif
 	char* returnValue = (char*)0;
+	int currentSize = 0;
+#if defined(__WIN32)
 	STARTUPINFOA si;
 	PROCESS_INFORMATION pi;
 
@@ -33,13 +38,12 @@ char* GetProcessResult(char* processName, char* args, int* len) {
 	si.hStdInput = stdIn_read;
 
 	char* buffer = (char*)malloc(512);
-	int currentSize = 0;
 	if (CreateProcessA(processName, args, NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi)){
 		DWORD exitCode;
 		do {
 			GetExitCodeProcess(pi.hProcess, &exitCode);
 		} while (exitCode == STILL_ACTIVE);
-		
+
 		DWORD read;
 		while (true) {
 			bool bResult = ReadFile(stdOut_read, (LPVOID)buffer, 512, &read, NULL);
@@ -70,9 +74,18 @@ char* GetProcessResult(char* processName, char* args, int* len) {
 
 	*len = (returnValue ? currentSize : 25);
 	return (returnValue ? returnValue : "Could not start process.");
+#else
+	*len = 25;
+	returnValue = strdup("Could not start process.");
+	return returnValue;
+#endif
 }
 
 bool StartProcess(char* processName, char* args) {
+#ifdef _DEBUG_
+	printf("[+] StartProcess(%s, %s).\n", processName, args);
+#endif
+#if defined(__WIN32)
 	char* returnValue = (char*)0;
 	STARTUPINFOA si;
 	PROCESS_INFORMATION pi;
@@ -85,7 +98,7 @@ bool StartProcess(char* processName, char* args) {
 	if (CreateProcessA(processName, args, NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi)) {
 		return true;
 	}
-
+#endif
 	return false;
 }
 

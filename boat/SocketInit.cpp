@@ -3,6 +3,7 @@
 
 bool SocketStartup()
 {
+#ifdef __WIN32
 	WORD wVersionRequested;
 	WSADATA wsaData;
 	int err;
@@ -17,10 +18,13 @@ bool SocketStartup()
 		return false;
 	}
 	else
+#endif
 		return true;
 }
 
 void SocketCleanup()
 {
+#ifdef __WIN32
 	WSACleanup();
+#endif
 }

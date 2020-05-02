@@ -179,7 +179,7 @@
     <ClInclude Include="OSNetVersionChecker.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="PeIsAdmin.h">
+    <ClInclude Include="PEIsAdmin.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="OSGetRam.h">

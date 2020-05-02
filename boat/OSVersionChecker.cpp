@@ -1,22 +1,27 @@
-#define   _CRT_OBSOLETE_NO_WARNINGS
-#include <windows.h>
-#include <string>
-#include <sstream>
+#define _CRT_OBSOLETE_NO_WARNINGS
 #include "OSVersionChecker.h"
+#include "WindowsCompat.h"
+#include <sstream>
+#include <string>
 
-typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
-typedef BOOL(WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
-#define PRODUCT_PROFESSIONAL	0x00000030
-#define VER_SUITE_WH_SERVER	0x00008000
+#ifdef __WIN32
+typedef void(WINAPI* PGNSI)(LPSYSTEM_INFO);
+typedef BOOL(WINAPI* PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
+#define PRODUCT_PROFESSIONAL 0x00000030
+#define VER_SUITE_WH_SERVER 0x00008000
+#else
+#include <sys/utsname.h>
+#endif
 
 bool windowsVersionName(char* str, int bufferSize) {
+#ifdef __WIN32
 	OSVERSIONINFOEXA osvi;
 	SYSTEM_INFO si;
 	BOOL bOsVersionInfoEx;
 	DWORD dwType; ZeroMemory(&si, sizeof(SYSTEM_INFO));
-	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEXA)); 
+	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEXA));
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
-	bOsVersionInfoEx = GetVersionExA((OSVERSIONINFOA*)&osvi); 
+	bOsVersionInfoEx = GetVersionExA((OSVERSIONINFOA*)&osvi);
 
 	PGNSI pGNSI = (PGNSI)GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo");
 	if (NULL != pGNSI)
@@ -161,12 +166,12 @@ bool windowsVersionName(char* str, int bufferSize) {
 		}
 	} if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
 		if (osvi.wProductType != VER_NT_WORKSTATION)
-			os << "Server 2012"; 
+			os << "Server 2012";
 		else
 			os << "Windows 8";
 		if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64)
 			os << " x64 Edition";
-		
+
 	}if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
 		if (osvi.wProductType != VER_NT_WORKSTATION)
 			os << "Server 2012 R2";
@@ -177,7 +182,7 @@ bool windowsVersionName(char* str, int bufferSize) {
 			os << " x64 Edition";
 	}if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0) {
 		if (osvi.wProductType != VER_NT_WORKSTATION)
-			os << "Windows Server 2016 Technical Preview"; 
+			os << "Windows Server 2016 Technical Preview";
 		else
 			os << "Windows 10";
 
@@ -185,5 +190,12 @@ bool windowsVersionName(char* str, int bufferSize) {
 			os << " x64 Edition";
 	}
 	strcpy(str, os.str().c_str());
+#else
+    struct utsname name;
+    if (uname(&name))
+        return false;
+
+	snprintf(str, bufferSize, "%s %s", name.sysname, name.release);
+#endif
 	return true;
 }

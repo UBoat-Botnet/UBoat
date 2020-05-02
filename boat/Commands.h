@@ -18,10 +18,10 @@
 #define COMMAND_FORMGRAB 14
 #define COMMAND_STEALERS 15
 
-typedef void(*CommandParserDelegate) (int, int, char*);
-typedef void(*PostPollDelegate) ();
+typedef void (*CommandParserDelegate)(int, int, char*);
+typedef void (*PostPollDelegate)();
 
-char* CreateCommand(int commandId, int commandType, char* data, int dataLength);
+char* CreateCommand(int commandId, int commandType, const char* data, int dataLength);
 void FreeCommand(char* data);
 
 int ParseCommand(char* command, char** commandData, int* commandType);

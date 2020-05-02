@@ -1,7 +1,9 @@
-#include <windows.h>
+#include "WindowsCompat.h"
 #include <string>
 #include <sstream>
 #include "OSNetVersionChecker.h"
+
+#if defined(__WIN32)
 #pragma comment (lib, "Advapi32.lib");
 
 #define MAX_KEY_LENGTH 255
@@ -10,37 +12,37 @@
 bool QueryKey(HKEY hKey, char* netVer)
 {
 	TCHAR    achKey[MAX_KEY_LENGTH];   // buffer for subkey name
-	DWORD    cbName;                   // size of name string 
-	TCHAR    achClass[MAX_PATH] = TEXT("");  // buffer for class name 
-	DWORD    cchClassName = MAX_PATH;  // size of class string 
-	DWORD    cSubKeys = 0;               // number of subkeys 
-	DWORD    cbMaxSubKey;              // longest subkey size 
-	DWORD    cchMaxClass;              // longest class string 
-	DWORD    cValues;              // number of values for key 
-	DWORD    cchMaxValue;          // longest value name 
-	DWORD    cbMaxValueData;       // longest value data 
-	DWORD    cbSecurityDescriptor; // size of security descriptor 
-	FILETIME ftLastWriteTime;      // last write time 
+	DWORD    cbName;                   // size of name string
+	TCHAR    achClass[MAX_PATH] = TEXT("");  // buffer for class name
+	DWORD    cchClassName = MAX_PATH;  // size of class string
+	DWORD    cSubKeys = 0;               // number of subkeys
+	DWORD    cbMaxSubKey;              // longest subkey size
+	DWORD    cchMaxClass;              // longest class string
+	DWORD    cValues;              // number of values for key
+	DWORD    cchMaxValue;          // longest value name
+	DWORD    cbMaxValueData;       // longest value data
+	DWORD    cbSecurityDescriptor; // size of security descriptor
+	FILETIME ftLastWriteTime;      // last write time
 
 	DWORD i, retCode;
 
 	TCHAR  achValue[MAX_VALUE_NAME];
 	DWORD cchValue = MAX_VALUE_NAME;
 
-	// Get the class name and the value count. 
+	// Get the class name and the value count.
 	retCode = RegQueryInfoKey(
-		hKey,                    // key handle 
-		achClass,                // buffer for class name 
-		&cchClassName,           // size of class string 
-		NULL,                    // reserved 
-		&cSubKeys,               // number of subkeys 
-		&cbMaxSubKey,            // longest subkey size 
-		&cchMaxClass,            // longest class string 
-		&cValues,                // number of values for this key 
-		&cchMaxValue,            // longest value name 
-		&cbMaxValueData,         // longest value data 
-		&cbSecurityDescriptor,   // security descriptor 
-		&ftLastWriteTime);       // last write time 
+		hKey,                    // key handle
+		achClass,                // buffer for class name
+		&cchClassName,           // size of class string
+		NULL,                    // reserved
+		&cSubKeys,               // number of subkeys
+		&cbMaxSubKey,            // longest subkey size
+		&cchMaxClass,            // longest class string
+		&cValues,                // number of values for this key
+		&cchMaxValue,            // longest value name
+		&cbMaxValueData,         // longest value data
+		&cbSecurityDescriptor,   // security descriptor
+		&ftLastWriteTime);       // last write time
 
 								 // Enumerate the subkeys, until RegEnumKeyEx fails.
 
@@ -69,8 +71,11 @@ bool QueryKey(HKEY hKey, char* netVer)
 	}
 	return false;
 }
+#endif
+
 bool getLastestNETinstalled(char* str, int bufferLenght)
 {
+#if defined(__WIN32)
 	HKEY hTestKey;
 	char* netVer = (char*)malloc(bufferLenght);
 
@@ -88,7 +93,9 @@ bool getLastestNETinstalled(char* str, int bufferLenght)
 	RegCloseKey(hTestKey);
 
 	free(netVer);
-
+#else
+	strncpy(str, "NO .NET Framework", bufferLenght);
+#endif
 	return true;
 
 }

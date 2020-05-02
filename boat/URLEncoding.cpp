@@ -1,9 +1,9 @@
 #include "URLEncoding.h"
-#include  <Windows.h>
+#include "WindowsCompat.h"
 
 static char* hexTable = "0123456789ABCDEF";
 
-char* URLEncode(char* input, int length)
+char* URLEncode(const char* input, int length)
 {
 	int nInputLen = length;
 	int nOutputLen = nInputLen * 3;
@@ -22,8 +22,11 @@ char* URLEncode(char* input, int length)
 	return retOutput;
 }
 
-char* URLDecode(char* input, int* outputLength)
+char* URLDecode(const char* input, int* outputLength)
 {
+#ifdef _DEBUG_
+	printf("[?] URLDecode(`%s`).\n", input);
+#endif
 	int nInputLen = strlen(input);
 	if ((nInputLen % 3) != 0)
 		return NULL;
@@ -32,7 +35,8 @@ char* URLDecode(char* input, int* outputLength)
 	char* output = (char*)malloc(nOutputLen + 1);
 	output[nOutputLen] = '\0';
 
-	char* workingInput = input;
+	char* workingInput;
+	workingInput = (char *)input;
 	char* retOutput = output;
 
 	for (int i = 0; i < nOutputLen; i++)

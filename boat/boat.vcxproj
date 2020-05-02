@@ -209,7 +209,7 @@
     <ClInclude Include="OSHwidChecker.h" />
     <ClInclude Include="OSNetVersionChecker.h" />
     <ClInclude Include="OSVersionChecker.h" />
-    <ClInclude Include="PeIsAdmin.h" />
+    <ClInclude Include="PEIsAdmin.h" />
     <ClInclude Include="Processes.h" />
     <ClInclude Include="Screenshot.h" />
     <ClInclude Include="Startup.h" />

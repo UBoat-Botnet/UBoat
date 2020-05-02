@@ -1,6 +1,6 @@
 #include "WebSafeEncryption.h"
 #include "URLEncoding.h"
-#include <Windows.h>
+#include "WindowsCompat.h"
 
 char* GetEncodedXorResult(char* input, char* key, int inputLength, int keyLength, char** outputKey)
 {
@@ -13,6 +13,9 @@ char* GetEncodedXorResult(char* input, char* key, int inputLength, int keyLength
 
 char* GetDecodedXorResult(char* input, char* key, int* outputLength)
 {
+#ifdef _DEBUG_
+	printf("[?] GetDecodedXorResult(`%s`, `%s`, ...).\n", input, key);
+#endif
 	int inputLength, keyLength;
 	char* decodedKey = URLDecode(key, &keyLength);
 	char* decodedInput = URLDecode(input, &inputLength);

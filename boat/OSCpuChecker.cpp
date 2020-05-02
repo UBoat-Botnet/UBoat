@@ -1,10 +1,13 @@
-#include <windows.h>
+#include "WindowsCompat.h"
 #include <string>
 #include <sstream>
 #include "OSCpuChecker.h"
 
 bool getCpuName(char* str, int buffferLenght)
 {
+#ifndef __WIN32
+	strncpy(str, "unknown", buffferLenght);
+#else
 	// Get extended ids.
 	int CPUInfo[4] = { -1 };
 	__cpuid(CPUInfo, 0x80000000);
@@ -33,12 +36,13 @@ bool getCpuName(char* str, int buffferLenght)
 		{
 			memcpy(CPUBrandString + 32, CPUInfo, sizeof(CPUInfo));
 		}
-		
+
 		/*SYSTEM_INFO si;
 		ZeroMemory(&si, sizeof(SYSTEM_INFO));
 		GetSystemInfo(&si);
 		__asm {int 3}*/
 	}
 	strcpy(str, CPUBrandString);
+#endif
 	return true;
 }

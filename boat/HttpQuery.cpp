@@ -1,6 +1,6 @@
 #include "HttpQuery.h"
 #include "StringOperations.h"
-#include <windows.h>
+#include "WindowsCompat.h"
 #include <stdio.h>
 #include <string>
 #include "Sockets.h"
@@ -31,6 +31,9 @@ static char* response_code_name = "HTTP Response Code";
 
 int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** responseHeaders, char** responseData, int* dataLength, bool isString, char* protocol, NameValuePair** postData)
 {
+#ifdef _DEBUG_
+	printf("[?] HTTPQuery(`%s`, `%s`, ...).\n", host, path);
+#endif
 	*responseData = 0;
 	*responseHeaders = 0;
 
@@ -39,9 +42,12 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 	SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (s == INVALID_SOCKET) return -1;
 
+	input.sin_port = htons(80);
 	int cRes = connect(s, (sockaddr*)&input, sizeof(input));
-	if (cRes == SOCKET_ERROR) return -1;
-
+	if (cRes == SOCKET_ERROR) {
+		perror("[!] connect");
+		return -1;
+	}
 	char* sendBuffer = (char*)malloc(512);
 
 	char* postBuffer = (char*)GlobalAlloc(GMEM_FIXED, POST_BUFFER_LEN);
@@ -94,7 +100,7 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 
 	char* recvBuffer = (char*)malloc(2048);
 	char* originalBuffer = recvBuffer;
-	
+
 	do
 	{
 		int r = recv(s, recvBuffer++, 1, 0);
@@ -121,7 +127,7 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 	{
 		int num;
 		char** splitResult2 = SplitString(splitResults[i], ": ", &num, false);
-		
+
 		if (num == 2)
 		{
 			int nameLength = strlen(splitResult2[0]);
@@ -144,7 +150,7 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 			memcpy_s(value, valueLength, splitResult2[0], valueLength);
 
 			returnHeaders[i] = new NameValuePair(i == 0 ? response_code_name : 0, value);
-			
+
 			int numResultCode;
 			char** splitResult3 = SplitString(value, " ", &numResultCode, false);
 
@@ -156,7 +162,7 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 			}
 
 			FreeSplitStringBuffer(splitResult3, numResultCode);
-		}			
+		}
 
 		FreeSplitStringBuffer(splitResult2, num);
 	}
@@ -174,7 +180,7 @@ int HTTPQuery(char* host, char* path, NameValuePair** headers, NameValuePair*** 
 		if (returnHeaders[i]->Name != 0 && strcmp(returnHeaders[i]->Name, "Content-Length") == 0)
 			contentLength = std::stoi(returnHeaders[i]->Value);
 	}
-	
+
 	if (contentLength == 0) contentLength = 1024 * 1024 * 2; //2MB buffer.
 
 	recvBuffer = (char*)malloc(contentLength + (isString ? 1: 0));

