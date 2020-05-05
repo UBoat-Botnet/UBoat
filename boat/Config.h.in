@@ -1,0 +1,6 @@
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
+
+#define UBOAT_VERSION_MAJOR @UBoat_VERSION_MAJOR@
+#define UBOAT_VERSION_MINOR @UBoat_VERSION_MINOR@
