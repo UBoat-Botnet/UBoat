@@ -1,12 +1,13 @@
-#ifndef STRINGOPERATIONS_H
-#define STRINGOPERATIONS_H
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
 
-#include "WindowsCompat.h"
-#include <stdio.h>
+#ifndef __UBOAT_STRINGOPERATIONS_H
+#define __UBOAT_STRINGOPERATIONS_H
 
-char** SplitString(char* string, char* delimiter, int* numElements, bool ignoreEmpty = true);
-void FreeSplitStringBuffer(char** buffer, int numElements);
+#include <string>
+#include <vector>
 
-char* JoinString(char** strings, int numElements, int* outputLength);
-void FreeJoinStringBuffer(char* buffer);
-#endif
+std::vector<std::string> SplitString(const std::string& s, char delim);
+
+#endif // __UBOAT_STRINGOPERATIONS_H
