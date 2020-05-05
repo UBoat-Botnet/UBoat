@@ -1,10 +1,13 @@
-#ifndef URLENCODING_H
-#define URLENCODING_H
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
 
-char* URLEncode(const char* input, int length);
-char* URLDecode(const char* input, int* outputLength);
+#ifndef __UBOAT_URLENCODING_H
+#define __UBOAT_URLENCODING_H
 
-void FreeURLEncodeResult(char* input);
-void FreeURLDecodeResult(char* input);
+#include <string>
 
-#endif
+std::string URLEncode(const std::string& input);
+std::string URLDecode(const std::string& input);
+
+#endif // __UBOAT_URLENCODING_H

