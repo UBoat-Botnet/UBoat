@@ -2,8 +2,7 @@
  * This file is part of UBoat - HTTP Botnet Project
  */
 
-#ifndef __UBOAT_COMMANDS_H
-#define __UBOAT_COMMANDS_H
+#pragma once
 
 #include <string>
 
@@ -24,16 +23,19 @@
 #define COMMAND_FORMGRAB 14
 #define COMMAND_STEALERS 15
 
-typedef struct {
-    int id;
-    int type;
-    std::string data;
-} Command;
-
-typedef void (*CommandParserDelegate)(int, int, char*);
 typedef void (*PostPollDelegate)();
 
-std::string CreateCommand(int id, int type, std::string data);
-Command ParseCommand(const std::string& command);
+namespace UBoat {
+namespace Commands {
+    typedef struct {
+        int id;
+        int type;
+        std::string data;
+    } Command;
 
-#endif // __UBOAT_COMMANDS_H
+    typedef void (*ParserDelegate)(Command);
+
+    std::string Create(int id, int type, std::string data);
+    Command Parse(const std::string& command);
+} // Commands
+} // UBoat
