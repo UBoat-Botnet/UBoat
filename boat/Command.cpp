@@ -1,63 +1,36 @@
-#include "Commands.h"
-#include "URLEncoding.h"
-#include "StringOperations.h"
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
 
-#include "WindowsCompat.h"
-#include <stdio.h>
+#include <cstring>
+#include <sstream>
 #include <string>
 
-using namespace std;
+#include "Commands.h"
+#include "StringOperations.h"
+#include "URLEncoding.h"
 
-char* CreateCommand(int commandId, int commandType, const char* data, int dataLength)
+std::string CreateCommand(int id, int type, std::string data)
 {
-	char* idString = (char*)malloc(11);
-	ZeroMemory(idString, 11);
-	_itoa_s(commandId, idString, 11, 10);
-	char* typeString = (char*)malloc(11);
-	ZeroMemory(typeString, 11);
-	_itoa_s(commandType, typeString, 11, 10);
+    std::stringstream output;
+    std::string encoded = URLEncode(data);
 
-	char* encoded = URLEncode(data, dataLength);
+    output << id << '|' << type << '|' << encoded;
 
-	char** strings = new char*[5] { idString, "|", typeString, "|", encoded};
-
-	int outputLen;
-	char* returnBuffer = JoinString(strings, 5, &outputLen);
-	return returnBuffer;
+    return output.str();
 }
 
-void FreeCommand(char* data)
+Command ParseCommand(const std::string& command)
 {
-	FreeJoinStringBuffer(data);
-}
+    Command ret;
+    std::vector<std::string> splitResult = SplitString(command, '|');
 
-int ParseCommand(char* command, char** commandData, int* commandType)
-{
-	int numResults;
-	char** splitResult = SplitString(command, "|", &numResults, false);
+    if (splitResult.size() != 3)
+        return ret;
 
-	if (numResults != 3) return -1;
+    ret.id = std::stoi(splitResult[0], 0, 10);
+    ret.type = std::stoi(splitResult[1], 0, 10);
+    ret.data = URLDecode(splitResult[2]);
 
-
-	int commandId = std::stoi(splitResult[0], 0, 10);
-	*commandType = std::stoi(splitResult[1], 0, 10);
-
-	int commandSize;
-	char* decoded = URLDecode(splitResult[2], &commandSize);
-
-	FreeSplitStringBuffer(splitResult, numResults);
-
-	char* commandString = (char*)malloc(commandSize + 1);
-	commandString[commandSize] = 0;
-	memcpy_s(commandString, commandSize, decoded, commandSize);
-
-	FreeURLDecodeResult(decoded);
-
-	*commandData = commandString;
-	return commandId;
-}
-
-void FreeParsedCommandResult(char* data)
-{
-	free(data);
+    return ret;
 }
