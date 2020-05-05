@@ -1,9 +1,14 @@
-#ifndef GATEHELPER_H
-#define GATEHELPER_H
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
 
-void SetBotId(char* newId);
-char* GetBotId();
-char* SendCommandWithDecodedResponse(char* command);
-void FreeDecodedResponse(char* response);
+#ifndef __UBOAT_GATEHELPER_H
+#define __UBOAT_GATEHELPER_H
 
-#endif
+#include <string>
+
+void SetBotId(const std::string& newId);
+const std::string& GetBotId();
+std::string SendCommandWithDecodedResponse(const std::string& command);
+
+#endif // __UBOAT_GATEHELPER_H
